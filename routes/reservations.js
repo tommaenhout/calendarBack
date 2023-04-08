@@ -3,13 +3,19 @@ var router = express.Router();
 const data = require("../data/reservation");
 
 
-router.get("/reservations", async (req, res) => {
-    const reservations = await data.getReservations();
-    res.json(reservations);
+
+router.get("/", async (req, res) => {
+    try {
+        const reservations = await data.getReservations();
+        res.json(reservations);
+    } catch (e) {
+        res.status(500).json({ error: e });
+    }
 });
 
-router.post("/reservations", async (req, res) => {
+router.post("/", async (req, res) => {
     const reservation = req.body;
+    console.log(reservation);
     const newReservation = await data.addReservation(reservation);
     res.json(newReservation);
 });

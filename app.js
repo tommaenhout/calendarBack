@@ -7,7 +7,8 @@ const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-let reservationRouter = require('./routes/reservation');
+var reservationRouter = require('./routes/reservations');
+const handleValidationErrors = require('./middleware/handleValidationErrors');
 
 var app = express();
 
@@ -20,12 +21,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(handleValidationErrors);
 
 
 app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/reservation', reservationRouter);
+app.use('/reservations', reservationRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -42,5 +44,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 module.exports = app;
