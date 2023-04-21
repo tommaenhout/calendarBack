@@ -30,6 +30,7 @@ async function addReservation(reservation){
 async function getReservations () {
     const reservations = await Reservation.find({});
     console.log(reservations)
+    return reservations;
 }  
 
 async function reservationExist(reservation){

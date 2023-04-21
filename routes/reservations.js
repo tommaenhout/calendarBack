@@ -7,7 +7,9 @@ const data = require("../data/reservation");
 router.get("/", async (req, res) => {
     try {
         const reservations = await data.getReservations();
+        console.log("reservations" + reservations)
         res.json(reservations);
+       
     } catch (e) {
         res.status(500).json({ error: e });
     }
